@@ -20,6 +20,8 @@ public class Board extends BaseEntity{
 
     private String content;
 
-    @ManyToOne // DB 상에서 Foreign Key 관계로 연결된 Entity 클래스에 설정한다.
+    // DB 상에서 Foreign Key 관계로 연결된 Entity 클래스에 설정한다.
+    // 명시적으로 lazy 로딩을 지정.
+    @ManyToOne (fetch = FetchType.LAZY)
     private Member writer; // 연관관계 지정.
 }
