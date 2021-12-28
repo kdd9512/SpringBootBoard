@@ -5,8 +5,14 @@ import com.springbootboard.entity.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -16,7 +22,7 @@ public class BoardRepositoryTests {
     @Autowired
     private BoardRepository boardRepository;
 
-//    @Test
+    //    @Test
 //    public void insertBoard() {
 //        IntStream.rangeClosed(1, 100).forEach(i -> {
 //
@@ -33,15 +39,48 @@ public class BoardRepositoryTests {
 //            boardRepository.save(board);
 //        });
 //    }
-    @Transactional // 해당 메서드를 하나의 트랜잭션으로 설정한다. 필요할 때 DB 에 재연결 되어 자료를 가져올 수 있게끔 한다.
+//    @Transactional // 해당 메서드를 하나의 트랜잭션으로 설정한다. 필요할 때 DB 에 재연결 되어 자료를 가져올 수 있게끔 한다.
+//    @Test
+//    public void testRead1(){
+//
+//        Optional<Board> result = boardRepository.findById(100L);
+//
+//        Board board = result.get();
+//
+//        System.out.println(board);
+//        System.out.println(board.getWriter());
+//    }
     @Test
-    public void testRead1(){
+    public void testReadWithWriter() {
+        Object result = boardRepository.getBoardWithWriter(100L);
 
-        Optional<Board> result = boardRepository.findById(100L);
+        Object[] arr = (Object[]) result;
 
-        Board board = result.get();
-
-        System.out.println(board);
-        System.out.println(board.getWriter());
+        System.out.println("============================================================");
+        System.out.println(Arrays.toString(arr));
     }
+
+    @Test
+    public void testGetBoardWithReply() {
+        List<Object[]> result = boardRepository.getBoardWithReply(100L);
+
+        for (Object[] arr : result) {
+            System.out.println(Arrays.toString(arr));
+        }
+    }
+
+    @Test
+    public void testWithReplyCount(){
+
+        Pageable pageable = PageRequest.of(0,10, Sort.by("bno").descending());
+
+        Page<Object[]> result = boardRepository.getBoardWithReplyCount(pageable);
+
+        result.get().forEach(row -> {
+//            Object[] arr = (Object[]) row;
+            System.out.println(Arrays.toString((Object[]) row));
+        });
+
+    }
+
 }
