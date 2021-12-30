@@ -10,6 +10,7 @@ public class SpringBootBoardApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootBoardApplication.class, args);
+        System.out.println("Start");
     }
 
 }
