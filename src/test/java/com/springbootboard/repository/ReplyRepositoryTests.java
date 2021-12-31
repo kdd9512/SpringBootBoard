@@ -18,9 +18,10 @@ public class ReplyRepositoryTests {
 //    @Test
 //    public void insertReply() {
 //
+//        // rangeClosed(시작번호, 입력할 개수)
 //        IntStream.rangeClosed(1, 300).forEach(i -> {
-//            // 1 부터 100 까지의 임의 번호
-//            long bno = (long) (Math.random() * 100) + 1;
+//
+//            long bno = (long) (Math.random() * 100) + 1; // 1 부터 100 까지의 임의 번호
 //
 //            Board board = Board.builder().bno(bno).build();
 //
