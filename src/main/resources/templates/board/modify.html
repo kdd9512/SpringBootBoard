@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <h1 class="mt-4">Board Modify Page</h1>
+        <form action="/board/modify" method="post">
+
+            <!-- 페이지 번호. list 로 돌아갔을 때 검색페이지를 유지하기 위한 정보를 담을 input 들. -->
+            <input type="hidden" name="page" th:value="${requestDTO.page}">
+            <input type="hidden" name="type" th:value="${requestDTO.type}">
+            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+
+            <div class="form-group">
+                <label>bno</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="bno"
+                        th:value="${dto.bno}"
+                        readonly/>
+            </div>
+            <div class="form-group">
+                <label>title</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="title"
+                        th:value="${dto.title}"/>
+            </div>
+            <div class="form-group">
+                <label>content</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="content"
+                        th:value="${dto.content}"/>
+            </div>
+            <div class="form-group">
+                <label>writer</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        name="writerName"
+                        th:value="${dto.writerName}"
+                        readonly/>
+            </div>
+            <div class="form-group">
+                <label>register date</label>
+                <input type="text"
+                       class="form-control"
+                       th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}"
+                       readonly/>
+            </div>
+            <div class="form-group">
+                <label>modify date</label>
+                <input type="text"
+                       class="form-control"
+                       th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}"
+                       readonly/>
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary modifyBtn">Modify</button>
+        <button type="button" class="btn btn-info listBtn">List</button>
+        <button type="button" class="btn btn-danger removeBtn">Remove</button>
+
+        <!--
+            controller 에 반드시 RequestMapping 의 method 방식을 POST 로 정의해야한다.
+            이하 jquery.
+        -->
+        <script th:inline="javascript" >
+            let actionForm = $('form');
+
+            $(".removeBtn").click(function () {
+
+                actionForm
+                    .attr("action", "/board/remove")
+                    // 통신은 POST 방식으로 한다. 이 경우 반드시 controller 에서 POST 방식을 사용할 것을 선언해야 한다.
+                    .attr("method", "post");
+
+                actionForm.submit();
+            });
+
+            $(".modifyBtn").click(function (){
+                if (!confirm("수정합니까")) {
+                    return;
+                }
+                actionForm
+                    .attr("action", "/board/modify")
+                    .attr("method", "post")
+                    .submit();
+            });
+
+            $(".listBtn").click(function (){
+                // let pageInfo = $("input[name='page']");
+                let page = $("input[name='page']");
+                let type = $("input[name='type']");
+                let keyword = $("input[name='keyword']");
+
+                actionForm.empty(); // form 태그 모든내용 삭제
+
+                actionForm.append(page); // 목록 페이지 이동에 필요한 내용들을 추가.
+                actionForm.append(type); // 목록 페이지 이동에 필요한 내용들을 추가.
+                actionForm.append(keyword); // 목록 페이지 이동에 필요한 내용들을 추가.
+
+                actionForm
+                    .attr("action", "/board/list")
+                    .attr("method", "get");
+
+                actionForm.submit();
+            })
+        </script>
+    </th:block>
+
+</th:block>
+
+</html>

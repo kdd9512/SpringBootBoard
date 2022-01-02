@@ -7,9 +7,9 @@
         <h1 class="mt-4">Board Read Page</h1>
 
         <div class="form-group">
-            <label>Gno</label>
+            <label>Bno</label>
             <input type="text" class="form-control"
-                   name="gno" th:value="${dto.bno}" readonly>
+                   name="bno" th:value="${dto.bno}" readonly>
         </div>
 
         <div class="form-group">
@@ -45,7 +45,7 @@
 
         <!-- @ModelAttribute 로 지정한 이름이 requestDTO 이므로 넘어온 값들을 찾으려면 당연히 requestDTO 에서 찾아야. -->
         <a th:href="@{/board/modify(
-                    gno = ${dto.bno},
+                    bno = ${dto.bno},
                     page=${requestDTO.page},
                     type = ${requestDTO.type},
                     keyword = ${requestDTO.keyword})}">
