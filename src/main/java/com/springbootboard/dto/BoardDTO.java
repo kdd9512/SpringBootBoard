@@ -1,12 +1,14 @@
 package com.springbootboard.dto;
 
 import lombok.*;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 
 @Data
 @ToString
 @Builder
+@Repository
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardDTO {

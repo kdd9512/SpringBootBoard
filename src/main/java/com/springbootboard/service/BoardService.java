@@ -5,7 +5,9 @@ import com.springbootboard.dto.PageRequestDTO;
 import com.springbootboard.dto.PageResultDTO;
 import com.springbootboard.entity.Board;
 import com.springbootboard.entity.Member;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface BoardService {
 
     Long register(BoardDTO dto); // 작성

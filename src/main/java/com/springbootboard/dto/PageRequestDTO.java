@@ -6,10 +6,12 @@ import lombok.Data;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
 
 @Builder
 @AllArgsConstructor
 @Data
+@Repository
 public class PageRequestDTO {
     private int page;
     private int size;

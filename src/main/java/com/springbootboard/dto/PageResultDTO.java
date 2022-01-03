@@ -3,6 +3,7 @@ package com.springbootboard.dto;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.function.Function;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Data
+@Repository
 public class PageResultDTO<DTO, EN> {
 
     // DTO 객체들을 보관하기 위한 List<DTO>
