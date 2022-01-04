@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @Builder
-@Repository
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardDTO {

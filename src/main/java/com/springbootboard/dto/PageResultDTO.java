@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Data
-@Repository
 public class PageResultDTO<DTO, EN> {
 
     // DTO 객체들을 보관하기 위한 List<DTO>
