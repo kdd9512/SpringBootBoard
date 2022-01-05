@@ -22,6 +22,8 @@ public class ReplyController {
 
     private final ReplyService replyService; // 자동 주입을 위해 final 선언
 
+    // value 에 {} 로 일부를 묶은 변수를 사용. 메서드 내에서 @PathVariable 로 이 감싼 부분을 뭘로 할지를 결정.
+    // produces 는 지정한 dataType 으로만 사용자에게 응답하겠다는 의미.
     @GetMapping(value = "/board/{bno}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ReplyDTO>> getListByBoard(@PathVariable("bno") Long bno) {
 

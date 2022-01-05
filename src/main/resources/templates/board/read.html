@@ -59,6 +59,63 @@
             <button type="button" class="btn btn-info">List</button>
         </a>
 
+        <div>
+            <div class="mt-4">
+                <h5>
+                    <span class="badge replyCount" style="background-color: #0a58ca; color: white; border-radius: 7px;">
+                        Reply Count [[${dto.replyCount}]]</span></h5>
+            </div>
+            <div class="list-group replyList">
+
+            </div>
+        </div>
+
+        <script th:inline="javascript">
+
+            $(document).ready(function () {
+                let bno = [[${dto.bno}]];
+
+                // 댓글 추가될 영역 지정.
+                let listGroup = $(".replyList");
+
+                // 날짜처리용.
+                function formatTime(str) {
+                    let date = new Date(str);
+
+                    return date.getFullYear() + "/" +
+                        (date.getMonth() + 1) + "/" +
+                        date.getDate() + " " +
+                        date.getHours() + ":" +
+                        date.getMinutes();
+                }
+
+                function loadJSONData() {
+                    $.getJSON('/replies/board/' + bno, function (arr) {
+                        console.log(arr);
+
+                        let str = "";
+                        $(".replyCount").html(" Reply Count " + arr.length);
+
+                        $.each(arr, function (idx, reply) {
+                            console.log(reply);
+                            str += '<div class="card-body" data-rno="' + reply.rno + '">' +
+                                '<b>' + reply.rno + '</b>';
+                            str += '<h5 class="card-title">' + reply.text + '</h5>';
+                            str += '<h6 class="card-subtitle mb-2 text-muted">' + reply.replier + '</h6>'
+                            str += '<p class="card-text">'+formatTime(reply.regDate)+'</p>';
+                            str += '</div>';
+                        });
+
+                        listGroup.html(str);
+                    });
+                }
+
+                $(".replyCount").click(function () {
+                    loadJSONData();
+                });
+
+            });
+        </script>
 
     </th:block>
 
