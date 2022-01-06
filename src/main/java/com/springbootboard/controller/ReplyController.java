@@ -44,10 +44,11 @@ public class ReplyController {
     @DeleteMapping("/{rno}")
     public ResponseEntity<String> remove(@PathVariable("rno") Long rno) {
 
-        log.info("Rno : " + rno);
+        log.info("rno : " + rno);
         replyService.remove(rno);
 
         return new ResponseEntity<>("success", HttpStatus.OK);
 
     }
+
 }
