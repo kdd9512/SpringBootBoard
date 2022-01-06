@@ -51,4 +51,14 @@ public class ReplyController {
 
     }
 
+    @Transactional
+    @PutMapping("/{rno}")
+    public ResponseEntity<String> modify(@RequestBody ReplyDTO replyDTO) {
+
+        log.info(replyDTO);
+        replyService.modify(replyDTO);
+
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
 }

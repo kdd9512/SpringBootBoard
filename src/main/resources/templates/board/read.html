@@ -220,7 +220,36 @@
                         }
                     });
 
-                })
+                });
+
+                $('.replyModify').click(function () {
+
+                    let rno = $('input[name="rno"]').val();
+
+                    let reply = {
+                        rno:rno,
+                        bno:bno,
+                        text: $('input[name="replyText"]').val(),
+                        replier: $('input[name="replier"]').val()
+                    }
+
+                    $.ajax({
+                        url:'/replies/' + rno,
+                        method:"put",
+                        data: JSON.stringify(reply),
+                        contentType: 'application/json; charset=utf-8',
+
+                        success: function (result) {
+                            console.log("SUCCESS? : " + result);
+
+                            if (result === "success") {
+                                alert("수정 완료");
+                                modal.modal('hide');
+                                loadJSONData();
+                            }
+                        }
+                    });
+                });
 
             });
         </script>
